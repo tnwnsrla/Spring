@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http::/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.TownAttachMapper">
+	<insert id="insert">
+		insert into town_attach (ta_uuid, ta_uploadPath, ta_filename, ta_filetype, ta_bno)
+		values(#{ta_uuid}, #{ta_uploadPath}, #{ta_fileName}, #{ta_fileType}, #{ta_bno})
+	</insert>
+	
+	<delete id="delete">
+		delete from town_attach where ta_uuid = #{ta_uuid}
+	</delete>
+	
+	<select id="findByBno" resultType="org.zerock.domain.TownAttachVO">
+		select * from town_attach where ta_bno = #{ta_bno}
+	</select>
+	
+	<delete id="deleteAll">
+		delete from town_attach where ta_bno = #{ta_bno}
+	</delete>
+	
+	<select id="getOldFiles" resultType="org.zerock.domain.TownAttachVO">
+		select * from town_attach where ta_uploadpath = CURDATE() - INTERVAL 1 DAY
+	</select>
+	
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http::/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.NoticeMapper">
+	<!-- 공지사항 검색 -->
+	<sql id="criteria"> <!-- 쿼리문 조각으로 생성 "criteria" -->
+	  <trim prefix=" AND (" suffix=") " prefixOverrides="OR">
+	    <foreach item='type' collection="typeArr">
+	      <trim prefix="OR">
+	        <choose>
+		 	  <when test="type == 'T'.toString()"> <!-- 공지사항 제목 -->
+		 	  	notice_title like CONCAT('%', #{keyword}, '%')
+		 	  </when>
+	          <when test="type == 'C'.toString()"> <!-- 공지사항 내용 -->
+	          	notice_content like CONCAT('%', #{keyword}, '%')
+	          </when>
+	          <!-- <when test="type == 'W'.toString()"> 작성자
+	          	notice_userid like CONCAT('%', #{keyword}, '%')
+	          </when> -->
+	        </choose>
+	      </trim>
+	    </foreach>
+	  </trim>
+	</sql>
+	
+	<!-- 공지사항 전체조회 -->
+	<select id="getList" resultType="org.zerock.domain.NoticeVO">
+	<![CDATA[
+	select * from notice where notice_bno > 0
+	]]>
+	</select>
+	
+	<!-- 공지사항 등록 -->
+	<insert id="insert">
+		insert into notice (notice_title, notice_userid, notice_content, notice_attCnt)
+		values (#{notice_title}, #{notice_userid}, #{notice_content}, #{notice_attCnt})
+	</insert>
+	
+	<!--  공지사항 등록 후 bno 사용 -->
+	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="notice_bno" keyColumn="notice_bno">
+		insert into notice (notice_title, notice_userid, notice_content, notice_attCnt)
+		values(#{notice_title}, #{notice_userid}, #{notice_content}, #{notice_attCnt})
+		
+		<selectKey keyProperty="notice_bno" order="AFTER" resultType="Integer">
+			select last_insert_id() as notice_bno
+		</selectKey>
+		
+	</insert>
+	
+	<!-- 공지사항 세부조회 -->
+	<select id="read" resultType="org.zerock.domain.NoticeVO">
+		select * from notice where notice_bno = #{notice_bno}
+	</select>
+	
+	<!-- 공지사항 삭제  -->
+	<delete id="delete">
+		delete from notice where notice_bno = #{notice_bno}
+	</delete>
+	
+	<!-- 공지사항 수정 -->
+	<update id="update">
+		update notice
+		set notice_title=#{notice_title}, notice_userid=#{notice_userid}, notice_content=#{notice_content}
+		where notice_bno = #{notice_bno}
+	</update>
+	
+	<!-- 공지사항 페이징 with 검색조건 -->
+	<select id="getListWithPaging" resultType="org.zerock.domain.NoticeVO">
+	<![CDATA[
+	  select *
+	  from notice
+	  where notice_bno > 0
+	]]>
+	  <include refid="criteria"></include> <!-- sql 조각 삽입 후 페이징 parameter 전달 -->
+	  order by notice_bno desc
+	  limit #{pageStart}, #{amount}
+	</select>
+	
+	<!-- <select id="getListWithPaging" resultType="org.zerock.domain.NoticeVO">
+		select * from notice order by notice_bno desc limit #{pageStart}, #{amount}
+	</select> -->
+	
+	<!-- <select id="getTotalCount" resultType="int">
+		select count(bno) from tbl_board where bno > 0
+	</select> -->
+	
+	<!-- 공지사항 전체 갯수 -->
+	<select id="getTotalCount" resultType="int">
+		select count(notice_bno) from notice where notice_bno > 0	
+		<include refid="criteria"></include>
+	</select>
+	
+	<update id="updateAttCnt">
+		update notice set notice_attCnt = notice_attCnt + #{amount} where notice_bno = #{notice_bno};
+	</update>
+
+	<select id="recentList" resultType="org.zerock.domain.NoticeVO">
+		select * from notice order by notice_bno desc limit 0,2
+	</select>
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http::/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.TownMapper">
+
+	<!-- 동네소식 전체조회 -->
+	<!-- <select id="getList" resultType="org.zerock.domain.TownVO">
+		<![CDATA[
+		select * from town where town_bno > 0
+		]]>
+	</select> -->
+	
+	<!-- 동네소식 전체조회 -->
+	<select id="getList" resultType="org.zerock.domain.TownVO">
+		<![CDATA[
+		select * 
+		from town tow left outer join town_attach attach on tow.town_bno = attach.ta_bno
+		where tow.town_bno > 0
+		]]>
+	</select>
+	
+	
+	<!-- 동네소식 등록 -->
+	<insert id="insert">
+		insert into town (town_title, town_userid, town_content)
+		values (#{town_title}, #{town_userid}, #{town_content})
+	</insert>
+	
+	<!--  동네소식 등록 후 bno 사용 -->
+	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="town_bno" keyColumn="town_bno">
+		insert into town (town_title, town_userid, town_content)
+		values(#{town_title}, #{town_userid}, #{town_content})
+		
+		<selectKey keyProperty="town_bno" order="AFTER" resultType="Integer">
+			select last_insert_id() as town_bno
+		</selectKey>
+		
+	</insert>
+	
+	<!-- 동네소식 세부조회 -->
+	<select id="read" resultType="org.zerock.domain.TownVO">
+		select * from town where town_bno = #{town_bno}
+	</select>
+	
+	<!-- 동네소식 삭제  -->
+	<delete id="delete">
+		delete from town where town_bno = #{town_bno}
+	</delete>
+	
+	<!-- 동네소식 수정 -->
+	<update id="update">
+		update town
+		set town_title=#{town_title}, town_userid=#{town_userid}, town_content=#{town_content}
+		where town_bno = #{town_bno}
+	</update>
+	
+	<!-- 동네소식 페이징 with 검색조건 -->
+	<select id="getListWithPaging" resultType="org.zerock.domain.TownVO">
+		select * from town order by town_bno desc limit #{pageStart}, #{amount}
+	</select>
+	
+	
+	<!-- 동네소식 전체 갯수 -->
+	<select id="getTotalCount" resultType="int">
+		select count(town_bno) from town where town_bno > 0	
+		<!-- <include refid="criteria"></include> -->
+	</select>
+	
+	<select id="recentList" resultType="org.zerock.domain.TownVO">
+		select * from town order by town_bno desc limit 0,3
+	</select>
+</mapper>
