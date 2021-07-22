@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="/resources/css/customJoin.css" rel="stylesheet">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
@@ -15,11 +16,12 @@
 <title>회원가입</title>
 </head>
 <body>
+<div class="join-all">
 	<form role="form" action="/member/join" method="post" id="signFrm">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		<div class="form-group">
 			<div>
-				<label>ID(아이디)</label>
+				<label for="userid">ID(아이디)</label>
 			</div>
 			<div>
 				<input class="join-id" placeholder="영어만 입력가능(8글자)" id="userid" name="userid" type="text" maxlength="8" oninput="handleOnInput(this)" autofocus> 
@@ -28,7 +30,7 @@
 		</div>
 		<div class="form-group">
 			<div>
-				<label>Password(비밀번호)</label>
+				<label for="userpw">Password(비밀번호)</label>
 			</div>
 			<div>
 				<input class="join-pw" placeholder="숫자만 입력가능(8숫자)" id="userpw" name="userpw" type="password" onkeypress="inNumber();" maxlength="8">
@@ -36,7 +38,7 @@
 		</div>
 		<div class="form-group">
 			<div>
-				<label>이름</label>
+				<label for="user_name">이름</label>
 			</div>
 			<div>
 				<input class="join-name" placeholder="성함을 적어주세요." id="user_name" name="user_name" type="text">
@@ -44,14 +46,19 @@
 		</div>
 		<div class="form-group">
 			<div>
-				<label>이메일</label>
+				<label for="user_email">이메일</label>
 			</div>
 			<div>
 				<input class="join-email" placeholder="이메일을 적어주세요." id="user_email" name="user_email" type="text">
 			</div>
 		</div>
 		<input type="button" id="signUp" class="btn-join" value="회원가입하기">
+		<a href="/customLogin" class="main-move">메인</a>
+		
 	</form>
+	<a href="/member/findId" class="">아이디 찾기</a>
+	<a href="/member/findPw" class="">비밀번호 찾기</a>
+</div>
 </body>
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"> -->
@@ -68,6 +75,12 @@ $(document).ready(function(e){
     console.log("submit clicked");
     formObj.submit();
   });
+  
+  $(function(){
+	  $("#findId-btn").click(function(){
+		  location.href="../member/findId";
+	  })
+  })
   
   // 빈칸 유효성 검사 및 아이디 중복체크 여부 검사
   $('#signUp').click(function(){

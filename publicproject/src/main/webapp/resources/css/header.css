@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.nav-move {
+	background-color : #E8F5FF;
+	height : 50px;
+	padding-top : 15px;
+}
+
+.main-move {
+	margin : 0px 150px 0 500px;
+}
+
+.notice-move {
+	margin : 0 100px 0 200px;
+}
+
+.town-move {
+	margin : 0 100px 0 200px;
+}
+
+a {
+	color : black;
+}

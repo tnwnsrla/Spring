@@ -1,12 +1,16 @@
 package org.zerock.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
@@ -24,9 +28,13 @@ public class MemberController {
 	private MemberService service;
 	
 	@GetMapping("/member/join")
-	public void join() {
-		
-	}
+	public void join() {}
+	
+	@GetMapping("/member/findId")
+	public void findId() {}
+	
+	@GetMapping("/member/findPw")
+	public void findPw() {}
 	
 	// 회원가입
 	@PostMapping("/member/join")
@@ -66,4 +74,16 @@ public class MemberController {
 		int result = service.idCheck(userid);
 		return Integer.toString(result);
 	}
+	
+	@RequestMapping(value = "/member/findId", method= RequestMethod.POST)
+	public String findId(HttpServletResponse response, @RequestParam("user_email") String user_email, Model model) throws Exception {
+		model.addAttribute("userid", service.findId(response, user_email));
+		return "/member/findId";
+	}
+	
+	@RequestMapping(value="/member/findPw", method= RequestMethod.POST)
+	public void findPw(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
+		service.findPw(response, member);
+	}
+	
 }

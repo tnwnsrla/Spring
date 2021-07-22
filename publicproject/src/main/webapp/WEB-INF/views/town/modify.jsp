@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="/resources/css/townModify.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,8 +29,8 @@
 <title>동네소식 수정</title>
 </head>
 <body>
+<div class="town-modify">
 	<h1>동네소식 수정화면입니다.</h1>
-	
 	<form role="form" action="/town/modify" method="post">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<input type="hidden" name="town_bno" value="${town.town_bno}"/>
@@ -47,22 +48,28 @@
 		</div>
 		<button type="submit" data-oper='modify' class="reg-button">수정완료</button>
 	</form>
-	<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">Files</div><!-- /.panel-heading -->
-      <div class="panel-body">
-        <div class="form-group uploadDiv">
-            <input type="file" name='uploadFile' multiple="multiple">
-        </div>
-        <div class='uploadResult'> 
-          <ul>
-          </ul>
-        </div>
-      </div><!--  end panel-body -->
-    </div><!--  end panel-body -->
-  </div><!-- end panel -->
-</div><!-- /.row -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Files</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="form-group uploadDiv">
+							<input type="file" name='uploadFile' multiple="multiple">
+						</div>
+						<div class='uploadResult'>
+							<ul>
+							</ul>
+						</div>
+					</div>
+					<!--  end panel-body -->
+				</div>
+				<!--  end panel-body -->
+			</div>
+			<!-- end panel -->
+		</div>
+		<!-- /.row -->
+	</div>
 </body>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">

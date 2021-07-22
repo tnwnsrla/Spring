@@ -1,12 +1,18 @@
 @charset "UTF-8";
 
+.custom-all {
+	margin : 0 auto;
+	width : 1000px;
+	padding-top : 150px;
+}
 .login {
 	background-color : fafad2; /* 베이지 */
 	border-radius : 10px;
 	display : table-cell;
 	/* display : inline-block; */ 
 	border : groove;
-	/* border-spacing : 50px 50px; */
+	/* border-spacing : 100px; */
+	padding-top : 30px;
 }
 
 .login:hover {
@@ -61,7 +67,7 @@ a:active {
 	/* background-color : #89A9D3; */ 
 	border-radius : 10px;
 	width : 190px;
-	height : 100px; 
+	height : 150px; 
 	border : groove;
 	display : table-cell;
 	/* display : inline-block; */
@@ -78,7 +84,7 @@ a:active {
 	background-color : #C8FFFF; 
 	border-radius : 10px;
 	width : 190px;
-	height : 100px; 
+	height : 150px; 
 	border : groove;
 	display : table-cell;
 	/* display : inline-block; */
@@ -97,17 +103,33 @@ a:active {
 	border-radius : 10px;
 	border : groove;
 	padding : 5px;
+	margin : 20px 0 0 0;
 }
+
 .noticeList:hover {
 	background-color : #D2E1FF;
 }
 
-.visual_img li {
+.notice-recent {
+	display : inline-block;
+	
+}
+/* .visual_img li {
 	position : relative;
 	display : inline;
+} */
+
+.slider {
+	useCss : true;
+	slideWidth : 300px;
+	height : 300px;
+}
+.visual_img img {
+	width : 300px;
+	height : 300px;
 }
 
-.visual_img img {
-	width : 400px;
-	height : 300px;
+.town-slider {
+	display : inline-block;
+	float : right;
 }

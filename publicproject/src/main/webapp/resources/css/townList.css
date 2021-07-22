@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+.town-all {
+	margin : 0 auto;
+	padding-top : 300px;
+	width : 1500px;
+	height : 300px;
+}
+
+.all {
+	text-align : center;
+	
+}
+.townList {
+	width : 200px;
+	margin-left : 10px;
+}
+.town-register {
+	float : right;
+	border : 1px solid skyblue;
+	/* margin-bottom : 50px; */
+	border-radius : 5px;
+	padding : 5px;
+	color : #000000;
+}
+img {
+	width : 100px;
+	height : 100px;
+}
+.town-register:hover {
+	background-color:skyblue;
+}
+.town-register > a:hover {
+	color:#ffffff;
+}
+.townList {
+	display : inline-block;
+}
+ 
+.townList-img {
+	text-align : center;
+}
+
+.pagination {
+	justify-content : center;
+}
+
+a{
+	text-decoration : none;
+}
+
+/* 방문하지 않은 링크 글자색 */	
+a:link {
+	color : black;
+}
+
+/* 마우스를 올려두었을 때 */
+a:hover {
+	color : red;
+}
+
+/* 링크 클릭 시 글자 색 */
+a:active {
+	color : green;
+}

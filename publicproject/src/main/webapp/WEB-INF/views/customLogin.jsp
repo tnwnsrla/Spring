@@ -4,12 +4,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <link href="/resources/css/customLogin.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"> <!-- 슬라이드 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $('.slider').bxSlider({
+    	  slideWidth: 400, // 슬라이드 너비
+    	  touchEnabled : (navigator.maxTouchPoints > 0) // 슬라이드 터치
+      });
+    });
+</script>
 <%-- <%@ page session="false" %> --%>
 <html>
 <head>
 	<title>프로젝트 메인</title>
 </head>
 <body>
+<div class="custom-all">
 	<sec:authorize access="isAnonymous()">
 		<div class="login">
 			<form role="form" method="post" action="/login">
@@ -37,45 +49,50 @@
 			</form>
 		</div> <!-- 로그인 성공시 끝 -->
 	</sec:authorize>
-		<div class="notice">
+		<div class="notice"> <!-- 공지사항으로 이동 -->
 			<a href="/notice/list" class="notice_main">공지사항</a>
 		</div>
 		<div class="town">
 			<a href="/town/list">동네소식</a>
 		</div>
-			<c:forEach items="${noticeList}" var="notice">
-			<div class="noticeList">
-				<div>
-					<a class='move' href='/notice/get?notice_bno=<c:out value="${notice.notice_bno}" />'><c:out value="${notice.notice_title}"/></a>
-				</div>
-				<div>
-					<fmt:formatDate value="${notice.notice_regdate}" pattern="yyyy-MM-dd"/>
-				</div>
-				<div>
-					${notice.notice_content}
-				</div>
-			</div>
-		</c:forEach>
-		<div>
-			<div>
-				<c:forEach items="${townList}" var="town">
+		<div class="notice-recent">
+			<c:forEach items="${noticeList}" var="notice"> <!-- 최신 동네소식 2개  -->
+				<div class="noticeList">
 					<div>
-						<c:set var="list" value="${town.attachList}"></c:set>
-						<div class="container_visual">
-						<ul class="visual_img">
-						<c:forEach items="${list}" var="attach">
-							<c:url var="furl" value="/display">
-								<c:param name="fileName" value="${attach.ta_uploadPath}/s_${attach.ta_uuid}_${attach.ta_fileName}" />
-							</c:url>
-							<%-- <a class='move' href='/town/get?town_bno=<c:out value="${town.town_bno}" />'> --%>
-								<li><img src="${furl}"/></li>
-							<!-- </a> -->
-						</c:forEach>
-						</ul>
-						</div>
+						<a class='move' href='/notice/get?notice_bno=<c:out value="${notice.notice_bno}" />'><c:out value="${notice.notice_title}"/></a>
 					</div>
-				</c:forEach>	
-			</div>
+					<div>
+						<fmt:formatDate value="${notice.notice_regdate}" pattern="yyyy-MM-dd"/>
+					</div>
+					<div>
+						${notice.notice_content}
+					</div>
+				</div>
+			</c:forEach>
 		</div>
+	<div class="town-slider">
+		<div class="slider">
+			<c:forEach items="${townList}" var="town">
+				<!-- 동네소식 썸네일 이미지 3개 -->
+				<div>
+					<c:set var="list" value="${town.attachList}"></c:set>
+					<div class="container_visual">
+						<ul class="visual_img">
+							<c:forEach items="${list}" var="attach">
+								<c:url var="furl" value="/display">
+									<%-- <c:param name="fileName" value="${attach.ta_uploadPath}/s_${attach.ta_uuid}_${attach.ta_fileName}" /> --%>
+									<c:param name="fileName" value="${attach.ta_uploadPath}/${attach.ta_uuid}_${attach.ta_fileName}" />
+								</c:url>
+								<a class='move' href='/town/get?town_bno=<c:out value="${town.town_bno}" />'>
+									<img src="${furl}" />
+								</a>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+</div>		
 </body>
 </html>

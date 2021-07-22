@@ -1,25 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="/resources/css/noticeGet.css" rel="stylesheet">
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<style>
-  table {
-    width: 100%;
-    border: 1px solid #444444;
-  }
-  th{
-    border: 1px solid #444444;
-    width: 100px;
-    background-color : Lightgray;
-  }
-  td{
-    border: 1px solid #444444;
-  }
-</style>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +14,9 @@
 <title>공지사항 조회</title>
 </head>
 <body>
-	<div> <%-- 게시글 내용 조회 --%>
-	 	<table>
+<div class="notice-all">
+	<div> <!--게시글 내용 조회-->
+	 	<table class=notice-table>
 	        <tr>
 	          <th>제목</th>
 	          <td>${notice.notice_title}</td>
@@ -43,7 +31,7 @@
 	        </tr>
 	        <tr>
 	          <th>내용</th>
-	          <td>${notice.notice_content}</td>
+	          <td class="notice_content">${notice.notice_content}</td>
 	        </tr>
 	        <tr>
 	          <th>첨부파일</th>
@@ -53,8 +41,8 @@
 	          </td>
 	        </tr>
 	    </table>
-    </div>
-    <div> <%--목록, 수정, 삭제 버튼 --%>
+    </div> 
+    <div class="button-all"> <%--목록, 수정, 삭제 버튼 --%>
     	<button data-oper='list' class="btn-list" onclick="location.href='/notice/list'">목록</button>
     	<sec:authentication property="principal" var="userinfo"/>
     	<sec:authorize access="isAuthenticated()">
@@ -71,6 +59,7 @@
 		<input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
  		<input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
 	</form>
+</div>
 </body>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">

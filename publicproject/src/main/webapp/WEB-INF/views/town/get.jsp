@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="/resources/css/townGet.css" rel="stylesheet">    
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +56,7 @@
 	          	</ul>
 	    </div>
     </div>
-    <div> <%--목록, 수정, 삭제 버튼 --%>
+    <div class="button-all"> <%--목록, 수정, 삭제 버튼 --%>
     	<button data-oper='list' class="btn-list" onclick="location.href='/town/list'">목록</button>
     	<sec:authentication property="principal" var="userinfo"/>
     	<sec:authorize access="isAuthenticated()">

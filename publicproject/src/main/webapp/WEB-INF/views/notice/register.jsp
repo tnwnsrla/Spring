@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
+<link href="/resources/css/noticeRegister.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -27,17 +28,17 @@
 <title>게시글 작성하기</title>
 </head>
 <body>
+<div class="notice-all">
 	<h1>게시글 작성화면입니다.</h1>
-	
-	<form role="form" action="/notice/register" method="post">
+	<form role="form" action="/notice/register" method="post" >
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<div class="mb-3"> <%-- 작성 제목 --%>
 		  <label for="exampleFormControlInput1" class="form-label">제목</label>
-		  <input name="notice_title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="50글자 미만으로 입력해주세요.">
+		  <input name="notice_title" type="text" class="form-control" id="notice_title" placeholder="50글자 미만으로 입력해주세요.">
 		</div>
 		<div class="mb-3"><%-- 작성자 --%>
 		  <label for="exampleFormControlInput1" class="form-label">작성자</label>
-		  <input name="notice_userid" type="text" class="form-control" id="exampleFormControlInput1" value='<sec:authentication property="principal.username"/>' readonly="readonly"><%--Security로 해야할 부분 --%>
+		  <input name="notice_userid" type="text" class="form-control" id="notice_writer" value='<sec:authentication property="principal.username"/>' readonly="readonly"><%--Security로 해야할 부분 --%>
 		</div>
 		<%-- <div class="mb-3">작성일
 		  <label for="exampleFormControlInput1" class="form-label">작성일</label>
@@ -45,26 +46,27 @@
 		</div>  --%>
 		<div class="mb-3"><%-- 작성내용 --%>
 		  <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-		  <textarea name="notice_content"class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="500글자 미만으로 입력해주세요."></textarea>
+		  <textarea name="notice_content"class="form-control" id="notice_content" rows="3" placeholder="500글자 미만으로 입력해주세요."></textarea>
 		</div>
 		<button type="submit" class="reg-button" id="uploadBtn">작성완료</button>
 	</form>
 	<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">File Attach</div><!-- /.panel-heading -->
-      <div class="panel-body">
-        <div class="form-group uploadDiv">
-            <input type="file" name='uploadFile' multiple>
-        </div>
-        <div class='uploadResult'> 
-          <ul>
-          </ul>
-        </div>
-      </div><!--  end panel-body -->
-    </div><!--  end panel-body -->
-  </div><!-- end panel -->
-</div><!-- /.row -->
+	  <div class="col-lg-12">
+	    <div class="panel panel-default">
+	      <div class="panel-heading">File Attach</div><!-- /.panel-heading -->
+	      <div class="panel-body">
+	        <div class="form-group uploadDiv">
+	            <input type="file" name='uploadFile' multiple>
+	        </div>
+	        <div class='uploadResult'> 
+	          <ul>
+	          </ul>
+	        </div>
+	      </div><!--  end panel-body -->
+	    </div><!--  end panel-body -->
+	  </div><!-- end panel -->
+	</div><!-- /.row -->
+</div>
 </body>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -73,6 +75,22 @@
 </script>
 <script>
 $(document).ready(function(e){
+/* 		var notice_title = document.forms[0].notice_title.value;
+		var notice_content = document.forms[0].noticE_content.value;
+	
+		function formCheck() {
+			  if(notice_title == null || notice_title == "") {
+				  alert("제목을 입력하세요");
+				  document.forms[0].notice_title.focus();
+				  return false;
+			  }
+			  if(notice_content == null || notice_content == "") {
+				  alert("내용을 입력하세요");
+				  document.forms[0].notice_content.focus();
+				  return false;
+			  }
+		} */
+		
 	  var formObj = $("form[role='form']");
 	  $("button[type='submit']").on("click", function(e){    
 	    e.preventDefault();
@@ -141,7 +159,7 @@ $(document).ready(function(e){
 	      }
 	    }); //$.ajax
 	  });
-	  
+	 
 	    function showUploadResult(uploadResultArr){
 		if(!uploadResultArr || uploadResultArr.length == 0){ return; }
 		var uploadUL = $(".uploadResult ul");

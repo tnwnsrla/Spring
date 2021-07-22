@@ -39,4 +39,12 @@
 	<!-- <select id="login" resultType="org.zerock.domain.MemberVO">
 		select userid, userpw from user_profile where userid = #{userid} and userpw = #{userpw}
 	</select>exam07new -->
+	
+	<select id="findId" parameterType="String" resultType="String">
+		select userid from user_profile where user_email = #{user_email}
+	</select>
+	
+	<update id="updatePw">
+		update user_profile set userpw = #{userpw} where userid = #{userid}
+	</update>
 </mapper>

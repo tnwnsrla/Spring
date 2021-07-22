@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
+<link href="/resources/css/noticeList.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<%@ include file="../includes/header.jsp"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -14,10 +16,12 @@
 </head>
 <body>
 <%-- !!Spring Security 게시글 작성출력여부 추가필요 --%>
+<div class="notice-all">
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-<span><a href="/notice/register">게시글 작성</a></span>
+<div class="notice-register"><a href="/notice/register">게시글 작성</a></div>
 </sec:authorize>
-		<table class="table table-striped">
+	<div class="table-all">
+		<table class="table table-hover">
 	  		<thead>
 	    		<tr>
 			      <th scope="col">번호</th>
@@ -47,11 +51,11 @@
 			</tbody> <%-- 공지사항 리스트 출력 끝 --%>
 		</table>
 	</div>
-	<div> <%-- 검색 조건설정 --%>
+	<div class="searchForm-all"> <%-- 검색 조건설정 --%>
 		<form id='searchForm' action="/notice/list" method='get'>
 			<select class="form-select" name='type'> <!-- type을 주어야 Criteria에서 type을 찾는다. -->
 			<!-- NoticeController에서 pageMaker 개체 지정 -->
-			  <option value="" <c:out value="${pageMaker.cri.type == null? 'selected' : ' '}"/>>검색조건을 고르세요.</option>
+			  <option value="" <c:out value="${pageMaker.cri.type == null? 'selected' : ' '}"/>>검색조건</option>
 			  <option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>제목</option>
 			  <option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
 			  <option value="TC" <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목 또는 내용</option>
@@ -90,6 +94,7 @@
 		<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
 		<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
 	</form> <%-- 페이지 이동 끝 --%>
+</div>
 </body>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">

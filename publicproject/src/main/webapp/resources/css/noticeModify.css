@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.notice-modify {
+	margin : 0 auto;
+	padding-top : 150px;
+	width : 1080px;
+	height : 300px;
+}
+
+button {
+	border : 1px solid skyblue;
+	margin-bottom : 20px;
+	border-radius : 5px;
+	padding : 5px;
+	text-color : black;
+	background-color : white;
+	width : 100px;
+	float : right;
+}
+
+button:hover {
+	cursor : pointer;
+	color:#ffffff;
+	background-color: skyblue;
+}

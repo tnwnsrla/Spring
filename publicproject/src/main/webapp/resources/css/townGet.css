@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.button-all {
+	margin-top: 40px;
+	padding-left: 10px;
+	float : right;
+}
+
+button {
+	border : 1px solid skyblue;
+	margin-bottom : 20px;
+	border-radius : 5px;
+	padding : 5px;
+	text-color : black;
+	background-color : white;
+	width : 100px;
+}
+
+button:hover {
+	cursor : pointer;
+	color:#ffffff;
+	background-color: skyblue;
+}
+
+ul {
+	list-style : none;
+}
