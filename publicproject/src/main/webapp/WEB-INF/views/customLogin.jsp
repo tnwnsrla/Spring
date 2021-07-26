@@ -37,6 +37,8 @@
 						<span class="join-href" ><a href="/member/join"><b>회원가입</b></a></span>
 					</div>
 			</form>
+			<a href="/member/findId" class="find">아이디 찾기</a>
+			<a href="/member/findPw" class="find">비밀번호 찾기</a>
 		</div> <!-- login 끝 -->
 	</sec:authorize>	
 	<sec:authorize access="isAuthenticated()"> <!-- 로그인 성공 시 -->
@@ -50,21 +52,25 @@
 		</div> <!-- 로그인 성공시 끝 -->
 	</sec:authorize>
 		<div class="notice"> <!-- 공지사항으로 이동 -->
-			<a href="/notice/list" class="notice_main">공지사항</a>
+			<div class="notice_main">
+				<a href="/notice/list">공지사항</a>
+			</div>
 		</div>
 		<div class="town">
-			<a href="/town/list">동네소식</a>
+			<div class="town_main">
+				<a href="/town/list">동네소식</a>
+			</div>
 		</div>
 		<div class="notice-recent">
 			<c:forEach items="${noticeList}" var="notice"> <!-- 최신 동네소식 2개  -->
 				<div class="noticeList">
-					<div>
+					<div class="notice_title">
 						<a class='move' href='/notice/get?notice_bno=<c:out value="${notice.notice_bno}" />'><c:out value="${notice.notice_title}"/></a>
 					</div>
-					<div>
+					<div class="notice_regdate">
 						<fmt:formatDate value="${notice.notice_regdate}" pattern="yyyy-MM-dd"/>
 					</div>
-					<div>
+					<div class="notice_content">
 						${notice.notice_content}
 					</div>
 				</div>

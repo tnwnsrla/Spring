@@ -60,7 +60,7 @@
 	<!-- 공지사항 수정 -->
 	<update id="update">
 		update notice
-		set notice_title=#{notice_title}, notice_userid=#{notice_userid}, notice_content=#{notice_content}
+		set notice_title=#{notice_title}, notice_userid=#{notice_userid}, notice_content=#{notice_content}, notice_attCnt=#{notice_attCnt}
 		where notice_bno = #{notice_bno}
 	</update>
 	

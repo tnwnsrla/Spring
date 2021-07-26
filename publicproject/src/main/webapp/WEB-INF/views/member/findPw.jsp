@@ -18,7 +18,7 @@
 	</p>
 	<p class="w3-center">
 		<button type="button" id="findBtn" class="w3-button w3-hover-white w3-ripple w3-margin-top w3-round mybtn">찾기</button>
-		<a href="/member/join" class="main-move">메인</a>
+		<a href="/customLogin" class="main-move">메인</a>
 	</p>
 </body>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -32,8 +32,8 @@
 				url : "/member/findPw",
 				type : "POST",
 				data : {
-					id : $("#userid").val(),
-					email : $("#user_email").val()
+					userid : $("#userid").val(),
+					user_email : $("#user_email").val()
 				},
 				beforeSend: function(xhr) {
 			       	xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);  

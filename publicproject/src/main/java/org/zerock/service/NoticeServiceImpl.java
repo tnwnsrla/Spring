@@ -30,17 +30,18 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void register(NoticeVO notice) {
 		log.info("등록된 공지사항 : " + notice);
-		mapper.insertSelectKey(notice);
 		
-		// 첨부파일이 존재하면 첨부파일 정보를 저장한다.
+		// 첨부파일이 존재하지 않으면 게시글만 등록
 		if(notice.getAttachList() == null || notice.getAttachList().size() <= 0) {
-			return;
-		}
-		notice.getAttachList().forEach(attach -> {
+			mapper.insertSelectKey(notice);
+		}   else if(notice.getAttachList() !=null ) { // 첨부파일이 존재하면 첨부파일까지 같이 등록
+			notice.getAttachList().forEach(attach -> {
+			mapper.insertSelectKey(notice);
 			attach.setNa_bno(notice.getNotice_bno());
 			attachMapper.insert(attach);
 			mapper.updateAttCnt(notice.getNotice_bno(), 1); // 첨부파일이 존재하면 AttCnt도 증가
-		});
+			});
+		}
 	}
 
 	@Override

@@ -89,19 +89,21 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void sendEmail(MemberVO vo, String div) throws Exception {
+		System.out.println("메일발송 메소드로 들어왔니?");
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "서버 이메일 주소(보내는 사람 이메일 주소)";
-		String hostSMTPpwd = "서버 이메일 비번(보내는 사람 이메일 비번)";
+		/* String hostSMTP = "smtp.gmail.com"; */
+		String hostSMTPid = "tnwnsrla@naver.com"; //서버 이메일 주소(보내는 사람 이메일 주소)
+		String hostSMTPpwd = "kimjeonyuka@"; //서버 이메일 비번(보내는 사람 이메일 비번)
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
-		String fromName = "프로젝트이름 또는 보내는 사람 이름";
+		String fromEmail = "tnwnsrla@naver.com"; // 보내는 사람 이메일주소(받는 사람 이메일에 표시됨)
+		String fromName = "김준수";
 		String subject = "";
 		String msg = "";
 
 		if(div.equals("findPw")) {
-			subject = "베프마켓 임시 비밀번호 입니다.";
+			subject = "학원프로젝트 임시 비밀번호 입니다.";
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 			msg += "<h3 style='color: blue;'>";
 			msg += vo.getUserid() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
@@ -116,9 +118,11 @@ public class MemberServiceImpl implements MemberService {
 			email.setDebug(true);
 			email.setCharset(charSet);
 			email.setSSL(true);
+			/* email.setSSL(false); */
 			email.setHostName(hostSMTP);
 			email.setSmtpPort(465); //네이버 이용시 587
-
+			/* email.setSmtpPort(587); */
+			
 			email.setAuthentication(hostSMTPid, hostSMTPpwd);
 			email.setTLS(true);
 			email.addTo(mail, charSet);
@@ -135,23 +139,32 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void findPw(HttpServletResponse response, MemberVO vo) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
-		MemberVO ck = mapper.read(vo.getUserid());
+		/* MemberVO ck = mapper.read(vo.getUserid()); */
 		PrintWriter out = response.getWriter();
 		
 		if(mapper.idCheck(vo.getUserid()) == 0) {
 			out.print("등록되지 않은 아이디입니다.");
 			out.close();
-		} else if (!vo.getUser_email().equals(ck.getUser_email())) {
+			/* } else if (!vo.getUser_email().equals(ck.getUser_email())) { */
+		} else if (!vo.getUser_email().equals(mapper.read(vo.getUserid()).getUser_email())) {
 			out.print("등록되지 않은 이메일입니다.");
+			out.close();
 		} else {
 			String pw = "";
 			for(int i = 0; i < 8; i++) {
-				pw += (char)((Math.random() * 26) + 97);
+				/* pw += (char)((Math.random() * 26) + 97); */
+				pw += (int)((Math.random() * 8)); // 숫자로 난수
 			}
 			
+			// 이메일 전송
 			vo.setUserpw(pw);
 			mapper.updatePw(vo);
 			sendEmail(vo, "findPw");
+			
+			// 전송 후 암호화
+			String encpw = pwencoder.encode(vo.getUserpw());
+			vo.setUserpw(encpw);
+			mapper.updatePw(vo);
 			
 			out.print("이메일로 임시 비밀번호를 발송하였습니다.");
 			out.close();

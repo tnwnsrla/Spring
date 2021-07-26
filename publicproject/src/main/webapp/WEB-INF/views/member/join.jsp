@@ -56,8 +56,6 @@
 		<a href="/customLogin" class="main-move">메인</a>
 		
 	</form>
-	<a href="/member/findId" class="">아이디 찾기</a>
-	<a href="/member/findPw" class="">비밀번호 찾기</a>
 </div>
 </body>
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
