@@ -190,7 +190,7 @@ $(document).ready(function(e){
 			*/
 			//image type
 			if(obj.image){
-				var fileCallPath =  encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
+				var fileCallPath =  encodeURIComponent(obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
 				str += "<li data-path='"+obj.uploadPath+"'";
 				str += " data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
 				str += " ><div>";
@@ -201,13 +201,13 @@ $(document).ready(function(e){
 				str += "</div>";
 				str += "</li>";
 			}else{
-				var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);			      
+				var fileCallPath =  encodeURIComponent(obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);			      
 				var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 				str += "<li "
 				str += "data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"' ><div>";
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' " 
-				str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "class='btn btn-warning btn-circle'><i class='fa fa-times'>삭제</i></button><br>";
 				str += "<img src='/resources/img/attach.png'></a>";
 				str += "</div>";
 				str += "</li>";

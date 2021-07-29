@@ -75,6 +75,7 @@ public class NoticeController {
 	
 	// 공지사항 수정 시 내용을 보낼 때
 	@PostMapping("/modify")
+	@PreAuthorize("isAuthenticated()")
 	public String modify(NoticeVO notice, RedirectAttributes rttr) {
 		log.info(" 수정된 공지사항 : " + notice);
 		if(service.modify(notice)) {
@@ -85,6 +86,7 @@ public class NoticeController {
 	
 	// 공지사항을 삭제할 때
 	@PostMapping("/remove")
+	@PreAuthorize("isAuthenticated()")
 	public String remove(@RequestParam("notice_bno") Integer notice_bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("삭제한 공지글 번호 : " + notice_bno);
 		List<NoticeAttachVO> attachList = service.getAttachList(notice_bno);

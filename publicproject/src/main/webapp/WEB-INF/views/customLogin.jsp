@@ -46,8 +46,12 @@
 			환영합니다. <b><sec:authentication property="principal.username"/></b>님 <br>
 			당신의 이름은 <b><sec:authentication property="principal.member.user_name"/></b>입니다. <br>
 			<form role="form" method='post' action="/customLogout">
+			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			    <button>로그아웃</button>
+			</form>
+			<form method="get" action="/member/update">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<button>회원정보 수정</button>
 			</form>
 		</div> <!-- 로그인 성공시 끝 -->
 	</sec:authorize>
@@ -67,11 +71,11 @@
 					<div class="notice_title">
 						<a class='move' href='/notice/get?notice_bno=<c:out value="${notice.notice_bno}" />'><c:out value="${notice.notice_title}"/></a>
 					</div>
-					<div class="notice_regdate">
-						<fmt:formatDate value="${notice.notice_regdate}" pattern="yyyy-MM-dd"/>
-					</div>
 					<div class="notice_content">
 						${notice.notice_content}
+					</div>
+					<div class="notice_regdate">
+						<fmt:formatDate value="${notice.notice_regdate}" pattern="yyyy-MM-dd"/>
 					</div>
 				</div>
 			</c:forEach>

@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,9 +40,6 @@ public class MemberController {
 	// 회원가입
 	@PostMapping("/member/join")
 	public String join(MemberVO member, RedirectAttributes rttr) {
-//		String hashedPw = BCrypt.hashpw(member.getUser_pw(), BCrypt.gensalt());
-//		member.setUser_pw(hashedPw);
-		
 		log.info("회원가입자 : " + member);
 		
 		service.join(member);
@@ -49,24 +47,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-//	@PostMapping("/member/login")
-//	public String login(MemberVO member, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
-//		log.info("login 한 사람 : " + member);
-//		
-//		HttpSession session = req.getSession();
-//		log.info(service.login(member));
-//		MemberVO login = service.login(member);
-//		
-//		if(login == null) {
-//			session.setAttribute("member", null);
-//			rttr.addFlashAttribute("msg", false);
-//		} else {
-//			session.setAttribute("member", login);
-//		}
-//		
-//		return "redirect:/notice/list";
-//	}
-	
+	// 아이디 중복체크
 	@RequestMapping(value = "/idCheck", method=RequestMethod.GET, produces="application/text; charset=utf8")
 	@ResponseBody
 	public String idCheck(HttpServletRequest request) {
@@ -75,15 +56,30 @@ public class MemberController {
 		return Integer.toString(result);
 	}
 	
+	// 아이디 찾기
 	@RequestMapping(value = "/member/findId", method= RequestMethod.POST)
 	public String findId(HttpServletResponse response, @RequestParam("user_email") String user_email, Model model) throws Exception {
 		model.addAttribute("userid", service.findId(response, user_email));
 		return "/member/findId";
 	}
 	
+	// 비밀번호 찾기
 	@RequestMapping(value="/member/findPw", method= RequestMethod.POST)
 	public void findPw(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
 		service.findPw(response, member);
 	}
 	
+	// 회원정보 수정을 위한 회원정보 가져오기
+	@RequestMapping(value="/member/update", method=RequestMethod.GET)
+	public void registerUpdateView(MemberVO vo, Model model) throws Exception {
+		// security 때문에 필요없네..
+	}
+	
+	// 회원정보 수정
+	@RequestMapping(value="/member/update", method=RequestMethod.POST)
+	public String registerUpdate(MemberVO vo, HttpSession session) throws Exception {
+		service.memberUpdate(vo);
+		session.invalidate();
+		return "redirect:/";
+	}
 }

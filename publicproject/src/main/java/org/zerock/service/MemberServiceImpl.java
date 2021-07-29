@@ -171,8 +171,24 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	// 비밀번호 찾기 후 비밀번호 업데이트
 	@Override
 	public int updatePw(MemberVO vo) throws Exception {
 		return mapper.updatePw(vo);
+	}
+
+	// 회원정보 수정
+	@Override
+	public void memberUpdate(MemberVO vo) throws Exception {
+		// 비밀번호 암호화
+		String encpw = pwencoder.encode(vo.getUserpw());
+		vo.setUserpw(encpw);
+		
+		mapper.memberUpdate(vo);
+	}
+
+	@Override
+	public MemberVO read(String userid) {
+		return mapper.read(userid);
 	}
 }

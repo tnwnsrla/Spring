@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 .nav-move {
-	background-color : #E8F5FF;
+	/* background-color : #E8F5FF; */
+	background-color : #000000;
 	height : 50px;
 	padding-top : 15px;
 }
@@ -19,5 +20,5 @@
 }
 
 a {
-	color : black;
+	color : white;
 }

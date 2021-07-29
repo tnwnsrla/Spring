@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+.find-all {
+	border : 2px solid skyblue;
+	margin : 200px 250px 150px 600px;
+	width : 500px;
+	height : 300px;
+	text-align : center;
+	padding-top : 100px;
+	padding-bottom : 100px;
+}
+
+.find-all:hover {
+	background-color : LightGray;
+}
+
+.form-group {
+	margin-bottom : 20px;
+}
+
+label {
+	font-weight : bold;
+}
+
+#findBtn{
+	background-color: #FFFFFF;
+	border : 1px solid skyblue;
+	border-radius : 5px;
+	padding : 5px;
+	color : #000000;
+}
+
+#check:hover {
+	cursor : pointer;
+}
+
+#findBtn:hover {
+	background-color:skyblue;
+	cursor : pointer;
+	color : white;
+}
+
+.find-result {
+	border : 1px solid black;
+}

@@ -28,23 +28,28 @@
 		where pro.userid = #{userid}
 	</select>
 	
+	<!-- 회원가입 -->
 	<insert id="insert">
 		insert into user_profile (userid, userpw, user_name, user_email) values (#{userid}, #{userpw}, #{user_name}, #{user_email})
 	</insert>
 	
+	<!-- 아이디 중복검사 -->
 	<select id="idCheck" resultType="int">
 		select count(*) from user_profile where userid=#{userid}
 	</select>
 	
-	<!-- <select id="login" resultType="org.zerock.domain.MemberVO">
-		select userid, userpw from user_profile where userid = #{userid} and userpw = #{userpw}
-	</select>exam07new -->
-	
+	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultType="String">
 		select userid from user_profile where user_email = #{user_email}
 	</select>
 	
+	<!-- 비밀번호 찾기 후 자동 업데이트 -->
 	<update id="updatePw">
 		update user_profile set userpw = #{userpw} where userid = #{userid}
+	</update>
+	
+	<!-- 회원정보 수정 -->
+	<update id="memberUpdate">
+		update user_profile set userpw = #{userpw}, user_name = #{user_name}, user_email = #{user_email} where userid=#{userid}
 	</update>
 </mapper>

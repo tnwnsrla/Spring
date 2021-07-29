@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="/resources/css/customfindPw.css" rel="stylesheet">
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,19 +8,21 @@
 <title>비밀번호 찾기</title>
 </head>
 <body>
-<h3>비밀번호 찾기</h3>
+<div class="find-all">
+	<h3>비밀번호 찾기</h3>
 	<p>
 		<label>아이디</label>
-		<input class="w3-input" type="text" id="userid" name="userid" placeholder="회원가입한 아이디를 입력하세요" required>
+		<input class="w3-input" type="text" id="userid" name="userid" placeholder="아이디를 입력하세요" required>
 	</p>
 	<p>
 		<label>이메일</label>
 		<input class="w3-input" type="text" id="user_email" name="user_email" placeholder="네이버만 가능.." required>
 	</p>
 	<p class="w3-center">
-		<button type="button" id="findBtn" class="w3-button w3-hover-white w3-ripple w3-margin-top w3-round mybtn">찾기</button>
+		<button type="button" id="findBtn" class="w3-button w3-hover-white w3-ripple w3-margin-top w3-round mybtn">임시 비밀번호 메일로 보내기</button>
 		<a href="/customLogin" class="main-move">메인</a>
 	</p>
+</div>
 </body>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>

@@ -75,6 +75,7 @@ public class TownController {
 	
 	// 공지사항 수정 시 내용을 보낼 때
 	@PostMapping("/modify")
+	@PreAuthorize("isAuthenticated()")
 	public String modify(TownVO town, RedirectAttributes rttr) {
 		log.info(" 수정된 공지사항 : " + town);
 		if(service.modify(town)) {

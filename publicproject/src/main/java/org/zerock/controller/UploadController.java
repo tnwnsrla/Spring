@@ -61,47 +61,7 @@ public class UploadController {
        		}
 	   }
 	}
-	   
-	// 아작스로 파일저장을 하는 방법
-//	@PostMapping("/uploadAjaxAction")
-//	public void uploadAjaxPost(MultipartFile[] uploadFile, Model model) {
-//		log.info("아작스 형식 파일 업로드");
-//		String uploadFolder = "E:\\ddd\\upload";
-//		
-//		//업로드 폴더 생성
-//		File uploadPath = new File(uploadFolder, getFolder());
-//		if(uploadPath.exists() == false) {
-//			uploadPath.mkdirs(); // 년/월/일 폴더 생성
-//		}
-//
-//		for (MultipartFile multipartFile : uploadFile) {
-//			
-//			String uploadFileName = multipartFile.getOriginalFilename();
-//			// IE 브라우저 경로자르기
-//			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\" + 1));
-//			
-//			// 파일이름 중복방지
-//			UUID uuid = UUID.randomUUID();
-//			uploadFileName = uuid.toString() + "_" + uploadFileName;
-//			
-////			File saveFile = new File(uploadFolder, uploadFileName);
-//			File saveFile = new File(uploadPath, uploadFileName);
-//			try {
-//				multipartFile.transferTo(saveFile);
-//				// 이미지 파일 유형인지 검사하여, 이미지 파일이면 썸네일 생성
-//				if(checkImageType(saveFile)) {
-//					//FileOutputStream 은 데이터를 파일에 바이트 스트림으로 저장하기 위해 사용된다.
-//					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "_s" + uploadFileName)); // uploadPath(업로드폴더)에 uuid 파일이름앞에 _s가 붙은 파일생성
-//					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 100,100 사이즈의 thumbnail 을 만든다.
-//					thumbnail.close(); // 스트림을 닫아주어야 파일삭제 시 오류가 나지 않는다. OutputStream은 .close()를 생활화하자.
-//				}
-//			} catch (Exception e) {
-//				log.error(e.getMessage());
-//			}
-//		}
-//	}
-	
-	
+
 	// 아작스로 파일저장을 하는 방법
 	@PostMapping(value="/uploadAjaxAction", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
@@ -225,7 +185,6 @@ public class UploadController {
 	// 동네소식 첨부파일 다운로드
 	@GetMapping(value = "/download2", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
-	// url 에 쓰는 파라미터가 fileName인데 나는 계속 na_filename으로 요청해서 오류가 났었다. 내가 쓰고 싶은 파라미터명을 받아오고 싶을 때는 @RequestParam을 하거나 fileName 파라미터명을 바꿔주어야 한다.
 	public ResponseEntity<Resource> downloadFile2(@RequestHeader("User-Agent") String userAgent, @RequestParam("ta_filename") String fileName) {
 		log.info("download file: " + fileName);
 		Resource resource = new FileSystemResource("D:\\ddd\\upload\\" + fileName);
@@ -237,10 +196,8 @@ public class UploadController {
 		log.info("resource: " + resource);
 		String resourceName = resource.getFilename();
 			
-		//다운로드는 파일명만 되어야 하니까 UUID 삭제
 		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
 			
-		// 한글로 인코딩
 		HttpHeaders headers = new HttpHeaders();
 		try {
 			String downloadName = null;

@@ -51,6 +51,10 @@
     		<button type="submit" data-oper='remove' class = "btn-remove">삭제</button>
     	</c:if>
     	</sec:authorize>
+    <%-- 	<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<button data-oper='modify' class="btn-modify" onclick="location.href='/notice/modify?notice_bno=<c:out value="${notice.notice_bno}" />'">수정</button> data-oper 로 javascript에서 사용할 data 명칭 지정
+    		<button type="submit" data-oper='remove' class = "btn-remove">삭제</button>
+		</sec:authorize> --%>
     	<input type="hidden" id="csrftest" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </div>
     <%-- 세부조회에서 목록으로 이동 시 페이지(pageNum,amount)를 보내서 페이지수 유지 --%>
